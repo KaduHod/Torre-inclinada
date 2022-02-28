@@ -1,0 +1,61 @@
+TORRE INCLINADA DELIVERY
+
+Sistema de gerenciamento de DELIVERY
+
+O que um delivery faz?
+
+    - Marmitas de almoço/janta
+    - Entrega das marmitas
+
+
+O que um delivery precisa para fazer o trabalho?
+
+    - Estoque
+        - Forncedor
+        - Quantidade de alimentos no estoque
+        - Custo do Estoque
+
+    - Funcionarios 
+        - Cozinha
+        - Entrega
+        - Administrador / CEO
+        - Gerente de Estoque
+        - Salario / Participação dos lucros
+
+    - Registro de vendas
+
+    - Registro de compras 
+
+Models 
+
+    - Pedido
+    - Funcionario
+    - Cliente
+    - Prato
+
+
+Relações 
+    - Cliente_Pedido
+        - tem varios pedidos (hasMany)
+
+    - Pedido_cliente_prato
+        - tem um Cliente (belongsTo)
+        - tem um ou mais pratos (hasMany)
+    
+    - Prato_pedido
+        - esta em varios pedidos (hasMany)
+
+
+    -Cliente_Endereco
+        - cliente tem um ou mais endereço
+        - endereço pertence a um usuario
+
+
+
+Logica prato do dia
+
+    O restaurante deve ter um prato do dia cadastrado
+    form para registrar pra to dia
+    dashboard -> se houver prato do dia, aparecer ele(descrição e preço), se nao avisar e botar link para o form
+    
+

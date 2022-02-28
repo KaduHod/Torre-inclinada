@@ -1,0 +1,186 @@
+#clienteMenu{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    overflow: hidden;
+    padding: 10px;
+}
+.marginBottom{
+    margin-bottom: 20px;
+}
+#clienteMenu h3{
+    
+}
+#formNovoCliente label{
+    display: flex;
+    align-items: center;
+}
+
+.active{
+    background-color: black;
+    border:1px solid #ced4da;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px #ced4da;
+    color: white;
+}
+.iconPedido{
+    width: 20px;
+    height: 20px;
+}
+#NovoEndereco{
+    width: 100%;
+    margin-left: 50px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#NovoEndereco label{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+}
+.optCliente{
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.inputsClientes{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+span{
+    font-weight: bold;
+}
+.hidden{
+    display: none;
+}
+/*Edit cliente*/
+#enderecoCompleto li{
+    
+    list-style-type: none;
+    
+}
+.inputSemValor{
+    background-color: rgba(255, 133, 133, 0.068);
+}
+
+#Cliente{
+    width: 400px;
+    height: fit-content;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+#EscolherCliente{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#form{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+}
+.campoFomr{
+    margin: 0px 40px 20px 40px;
+}
+#Campode_formularios{
+    padding:10px;
+    width: fit-content;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.DescClienteUl{
+    margin-left: 30px;
+    display: flex;
+    flex-direction:column ;
+    align-items: flex-start;
+}
+
+#formNovoCliente{
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 50px;
+}
+#formNovoCliente label{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+
+
+
+
+.notificacao{
+    display: block;
+    border:1px solid rgb(163, 163, 163);
+    position: absolute;
+    width: 250px;
+    height: 120px;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.459);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    box-shadow: 0px 0px 10px rgb(173, 173, 173);
+    opacity: 0;
+}
+.fade-in{
+    animation: fade-in 200ms ease-in 10ms forwards;
+}
+@keyframes fade-in {
+    to{
+        opacity: 1;
+    }
+}
+@keyframes fade-out {
+    to{
+        opacity: 0;
+    }
+}
+.flexNotificacao{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+
+}
+.botoesLado_a_lado{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.botoesLado_a_lado button{
+    
+}
+.not-active {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+.formAmarelo{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    
+    padding: 5px;
+    align-items: center;
+    
+    justify-content: center;
+    
+    transition: 50ms;
+}
+.formAmarelo h3{
+    text-align: center;
+}
+.inputCustom{
+    border: none;
+    border-bottom: 1px solid #ced4da;
+    background-color: transparent;
+    outline: none;
+    margin-bottom: 10px;
+    width: 300px;
+}
+.formAmarelo:hover{
+    
+}
+.formAmarelo ul{
+     width: 100%;
+}
+.formAmarelo span{
+    font-weight: bolder;
+}
+
+#pratoDoDia2{
+    width: 400px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    transition: 50ms;
+    
+}
+#pratoDoDia{
+    width: 400px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px 5px ;
+    padding: 5px;
+    align-items: center;
+    box-shadow: 0px 0px 5px rgba(207, 207, 207, 0.685);
+    justify-content: center;
+    background: #f7971e; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f7971e, #ffd200); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f7971e, #ffd200); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    transition: 50ms;
+    
+}
+#pratoDoDia:hover{
+    box-shadow: 0px 0px 15px rgba(150, 150, 150, 0.685);
+}
+#pratoDoDiaBotoes{
+    width: 100%;
+}
+#pratoDoDia ul{
+     width: 100%;
+}
+#pratoDoDia span{
+    font-weight: bolder;
+}
+#DashboardMain{
+    width: 100vw;
+    padding: 10px;
+}
