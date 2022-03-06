@@ -1963,9 +1963,10 @@ progress {
   --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
   width: 100%;
   margin-bottom: 1rem;
-  color: #212529;
+  color: #1e1b16;
   vertical-align: top;
   border-color: #dee2e6;
+  margin-top:1rem;
   
 }
 .table > :not(caption) > * > * {
@@ -2119,6 +2120,7 @@ progress {
 
 .table-responsive {
   overflow-x: auto;
+  max-height: 800px;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -2213,9 +2215,8 @@ progress {
 .form-control:focus {
   color: #212529;
   background-color: #f8fafc;
-  border-color: #86b7fe;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 0.25rem white;
 }
 .form-control::-webkit-date-and-time-value {
   height: 1.6em;
@@ -3239,13 +3240,13 @@ textarea.form-control-lg {
 .btn-dark {
   margin-top: 10px;
   color: #fff;
-  background-color: #212529;
-  border-color: #212529;
+  background-color: #1e1b16;
+  border-color: #1e1b16;
 }
 .btn-dark:hover {
   color: #fff;
   background-color: #ffffff00;
-  border-color: #1a1e21;
+  border-color: #1e1b16;
   color: black;
 }
 .btn-check:focus + .btn-dark, .btn-dark:focus {

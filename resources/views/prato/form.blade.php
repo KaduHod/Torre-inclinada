@@ -3,7 +3,7 @@
 @section('content')
 <div class="formContainer flexColumn "style='padding:20px'>
     
-    <form action="/prato/store" id="formPratoDoDia" class="border" method="post">
+    <form action="/prato/store" id="formPratoDoDia" class="border sombra" method="post">
         <h1>Criar prato</h1>
         @csrf
         <label for="preco">Nome: 

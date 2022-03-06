@@ -53,14 +53,10 @@ class AdminController extends Controller
     }
 
     public function pedidos(){
-        $pedidos = Pedido::all();
-
-        return view('admin.pedidos', compact('pedidos'));
+        return redirect('/Pedido');
     }
     public function clientes(){
-        $clientes = Cliente::all();
-
-        return view('admin.clientes', compact('clientes'));
+        return redirect('/Clientes');
     }
     public function pratos(){
         $pratos = Prato::all();
@@ -68,76 +64,93 @@ class AdminController extends Controller
         return view('admin.pratos', compact('pratos'));
     }
 
-    public function faturamento(){
-        $pedidos = Pedido::whereBetween('created_at', ['2022-02-01 00:00:00', '2022-02-28 23:59:59'])->get();
-        
-        $pedidos_separados_por_dia = separaPedidosPorDia($pedidos);
+    public function faturamento(){        
 
-        //dd($pedidos_separados_por_dia);
-
-        return view('admin.faturamento', compact('pedidos_separados_por_dia'));
+        return view('admin.faturamento');
     }
+
+    public function funcionario(){
+        return view('admin.createFuncionario');
+    }
+
+    public function storeFuncionario(){
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return back()->with('msg','Funcionario registrado');
+    }
+
+    public function updateFuncionario(){
+
+    }
+
+    public function analiseMes($mes){
+        $query = queryDoMes($mes);
+
+        $pedidos = $query[0];// pedidos
+        $arrAuxiliar = $query[1];// array que ajuda a criar o grafico
+        $nomeMes = nomeDoMes($mes);// nome do mes solicitado de analise
+
+        $pratos = Prato::all();
+
+
+        $queryNovosClientes = Cliente::query();
+        $NovosClientes = $this->inicioEfimDeMes($mes,$queryNovosClientes);
+        $qtdNovosClientes = $NovosClientes->count();// quantidade de novos clientes
+        
+        $TopCincoclientes = retornaTopClientes(topCincoclientes($mes));// helpers
+       
+        return view('admin.analiseMes', compact(
+            'pedidos',
+            'arrAuxiliar',
+            'nomeMes',
+            'pratos',
+            'TopCincoclientes',
+            'qtdNovosClientes'
+        ));
+        
+    }
+
+    private function inicioEfimDeMes($mes, $query){
+        $trintaDias = ['04','06','09','11'];
+    
+        $verificaFevereiro = $mes == '02' ? true : false;
+        $verificaTrinta    = array_search($mes, $trintaDias) > -1 ? true : false;
+        $verificaTrintaEUm = !$verificaFevereiro && !$verificaTrinta ? true : false;
+    
+        if($verificaFevereiro){
+            $dataInicio = '2022-' . $mes . '-01 00:00:00';
+            $dataFim = '2022-' . $mes . '-28 23:59:59';
+    
+            $arrDias = criaArrayDeDias(28);
+        }
+        if($verificaTrinta){
+            $dataInicio = '2022-' . $mes . '-01 00:00:00';
+            $dataFim = '2022-' . $mes . '-30 23:59:59';
+            $arrDias = criaArrayDeDias(30);
+        }
+        if($verificaTrintaEUm){
+            $dataInicio = '2022-' . $mes . '-01 00:00:00';
+            $dataFim = '2022-' . $mes . '-31 23:59:59';
+            $arrDias = criaArrayDeDias(31);
+        }
+    
+        $query->whereBetween('created_at',[$dataInicio,$dataFim]);
+        return $query;
+    }
+
+    
 
 }
 
-function separaPedidosPorDia($query){
-    $arrDias = [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        []
-    ];
 
-    for($i = 0; $i < count($query); $i++){
-        $DIAPEDIDO = $query[$i]->created_at->day;
-        $PRECOPEDIDO = $query[$i]->prato->preco;
-        array_push($arrDias[$DIAPEDIDO], $PRECOPEDIDO);
-    };
 
-    return $arrDias;
-};
-
-/* function separaPedidosPorMes($pedidos){
-    $arrMeses = [
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        []
-    ];
-
-    foreach($pedidos as $pedido){
-        $mesPedido;
-    }
-} */

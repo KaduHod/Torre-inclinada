@@ -35,13 +35,18 @@ Route::group(['middleware' => 'auth'], function (){
 
     // Pedido
     Route::get('/Pedidos',[PedidoController::class, 'index']);
+    Route::get('/Pedidos/criar',[PedidoController::class, 'form']);
     Route::get('/Pedidos/create',[PedidoController::class, 'create']);
     Route::post('/Pedidos/store',[PedidoController::class, 'store']);
     Route::get('/Pedidos/edit/{id}',[PedidoController::class, 'edit']);//Pedidos/update
     Route::post('/Pedidos/update',[PedidoController::class, 'update']);//Pedidos/update
     Route::get('/Pedidos/exclude/{id}',[PedidoController::class, 'destroy']);
+    Route::get('/Pedidos/editar-status/{id}',[PedidoController::class, 'editarStatus']);
+    Route::post('/Pedidos/status-editado',[PedidoController::class, 'statusUpdate']);
+    
 
     // Cliente
+    Route::get('/Clientes',[ClienteController::class,'index']);
     Route::get('/cliente/criar',[ClienteController::class,'createForm']);
     Route::post('/cliente/salvar',[ClienteController::class,'store']);
     Route::get('/cliente/exclude/{id}',[ClienteController::class,'destroy']);
@@ -54,6 +59,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/admin/clientes', [AdminController::class,'clientes']);
     Route::get('/admin/pratos', [AdminController::class,'pratos']);
     Route::get('/admin/faturamento', [AdminController::class,'faturamento']);
+    Route::get('/admin/faturamento/{mes}', [AdminController::class,'analiseMes']);
+    Route::get('/admin/funcionario', [AdminController::class,'funcionario']);
 });
 
 
@@ -64,188 +71,198 @@ Route::group(['middleware' => 'auth'], function (){
 Route::get('/oi', function(){
         
 
-    $arrNomes = [  
-        'Miguel',
-        'Arthur',
-        'Gael',
-        'Heitor',
-        'Theo',
-        'Davi',
-        'Gabriel',
-        'Bernardo',
-        'Samuel',
-        'João',
-        'Miguel',
-        'Helena',
-        'Alice',
-        'Laura',
-        'Maria',
-        'Alice',
-        'Valentina',
-        'Heloísa',
-        'Maria',
-        'Clara',
-        'Maria Cecília',
-        'Maria Julia',
-        'Sophia',
-        'Alexandre',
-        'Eduardo',
-        'Henrique',
-        'Murilo',
-        'Theo',
-        'André',
-        'Enrico',
-        'Henry',
-        'Nathan'
+     
 
-    ];
+    function enderecoRandomico($cliente){
+        
+        $contEnderecos = count($cliente->enderecos);
+        $arrAuxiliar = [];
+        $cont = 0;
 
+        while($cont < $contEnderecos){
+            array_push($arrAuxiliar,$cont);
+            $cont++;
+        }
 
+        $indieRandomico = array_rand($arrAuxiliar, 1);
+        return $cliente->enderecos[$indieRandomico];
 
-    $arrEndereco = [
-        'RUA G - 705 - Cajuru',
-        'RUA SAO JOSE - 638 - Boa Vista',
-        'RUA ONZE - 637 - Boqueirão',
-        'RUA H - 627 - Bairro Novo',
-        'RUA SAO PAULO - 619 - Pinheirinho',
-        'RUA DOZE - 593 - Pinheirinho',
-        'RUA TREZE - 585 - Pinheirinho',
-        'RUA SANTO ANTONIO - 554 - Pinheirinho',
-        'AVENIDA BRASIL - 532 - Pinheirinho',
-        'RUA I - 507 - Pinheirinho',
-        'RUA 2 - 502 - Matriz',
-        'RUA 1 - 476 - Matriz',
-        'RUA 3 - 460  - Matriz',
-        'RUA SAO PEDRO - 458 - Matriz',
-        'RUA QUINZE - 456 - Fazendinha-Portão',
-        'RUA SAO JOAO - 455 - Fazendinha-Portão',
-        'RUA J - 453 - Fazendinha-Portão',
-        'RUA QUATORZE - 452 - Cidade Industrial de Curitiba',
-        'RUA SAO FRANCISCO - 442 - Cidade Industrial de Curitiba',
-        'RUA SETE DE SETEMBRO - 428 - Cidade Industrial de Curitiba',
-        'RUA 4 - 425 - Cidade Industrial de Curitiba',
-        'RUA DEZESSEIS - 423 - Cajuru',
-        'RUA QUINZE DE NOVEMBRO - 394 - Cajuru',
-        'RUA 5 - 392 - Cajuru',
-        'RUA TIRADENTES - 384 - Boqueirão',
-        'RUA DEZESSETE - 380 - Boqueirão',
-        'RUA 6 - 378 - Boqueirão',
-        'RUA L - 374 - Boa Vista',
-        'RUA VINTE - 362 - Boa Vista',
-        'RUA BAHIA - 360 - Boa Vista',
-        'RUA AMAZONAS - 359 - Bairro Novo',
-        'RUA DEZOITO - 357 - Bairro Novo',
-        'RUA SAO SEBASTIAO - 357 - Bairro Novo'
-    ];
+    }
 
-    $arrIdsPratos = [1,2,4,6];
+    function statusRandom(){
+        $arr = ['Preparando pedido','Em rota de entraga','Entregue','Cancelado'];
+        $indieRandomico = array_rand($arr,1);
+        return $arr[$indieRandomico];
+    }
 
-    function retornaEnderecoFormatado($arr){
-        $arrFormatado = [];
-        foreach($arr as $str){
-            $endereco1 = explode('-',$str);
-            $rua = $endereco1[0];
-            $Bairro = $endereco1[2];
-            $numero = $endereco1[1];
-            $complemento = 'fundos';
-            $cep = '0000000';
-            $arr = [
-                'Rua'=>$rua,
-                'Bairro'=> $Bairro,
-                'Numero'=> $numero,
-                'Complemento'=> $complemento,
-                'CEP'=> $cep
-            ];
-            array_push($arrFormatado,$arr);
+    function clienteRandomico(){
+        $clientes = Cliente::all();
+        $tamanhoArrayCliente = count($clientes);
+        $cont = 0;
+        $arrAuxiliar = [];
+        while($cont < $tamanhoArrayCliente - 1){
+            array_push($arrAuxiliar, $cont);
+            $cont++;
+        }
+        $indieRandomico = array_rand($arrAuxiliar, 1);
+        $clienteRandomico = $clientes[$indieRandomico];
+        return $clienteRandomico;
+    }
+
+    function dataRandomica(){
+        
+        $arrMeses = ['01','03','04','05','06','07','08','09','10','11','12'];
+        $cont = 1;
+        $arrDias = [];
+        while($cont < 31){
+            $numeroFormatado = formataDiaEmString($cont);
+            
+            array_push($arrDias,$numeroFormatado);
+            $cont++;
+        }
+        $arrAnos = ['2022'];
+
+        $arrHoras = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'];
+
+        $arrMinutos = [];
+        $arrSegundos = [];
+        $contDias = 0;
+        while($contDias < 60){
+            $minuto = formataDiaEmString($contDias);
+            array_push($arrMinutos, $minuto);
+            array_push($arrSegundos, $minuto);
+            $contDias++;
+        }
+        //dd($arrMinutos);
+        
+
+        $mesAleatorio     = retornaValorAleatorioDeArray($arrMeses);
+        $diaAleatorio     = retornaValorAleatorioDeArray($arrDias);
+        $anoAleatorio     = retornaValorAleatorioDeArray($arrAnos);
+        $horaAleatoria    = retornaValorAleatorioDeArray($arrHoras);
+        $minutoAleatoria  = retornaValorAleatorioDeArray($arrMinutos);
+        $segundoAleatoria = retornaValorAleatorioDeArray($arrSegundos);
+        $arr = [
+            'year' => $anoAleatorio,
+            'month' => $mesAleatorio,
+            'day' => $diaAleatorio,
+            'hour' => $horaAleatoria,
+            'minutes' => $minutoAleatoria,
+            'seconds' => $segundoAleatoria
+        ];
+
+        return formataData($arr);
+    }
+
+    function dataHojeComHoraRandomica(){
+        $horas = [];
+        $segundos = [];
+
+        $cont = 1;
+        while($cont<24){
+            if ($cont < 10){
+                $hora = '0'.$cont;
+                $segundo = '0'.$cont;
+            }else{
+                $hora =  strval($cont);
+                $segundo = strval($cont);
+            } 
+
+            array_push($horas, $hora);
+            array_push($segundos, $segundo);
+            $cont++;
+        }
+
+        while($cont >= 24 && $cont < 60){
+            $segundo = strval($cont);
+            array_push($segundos, $segundo);
+            $cont++;
+        }
+
+        $hoje = now()->toArray();
+        $hoje['hour'] = array_rand($horas,1);
+        $hoje['minutes'] = array_rand($segundos,1);
+        $hoje['seconds'] = array_rand($segundos,1);
+        $data = formataData($hoje);
+        return $data;
+    }
+
+    function formataDiaEmString($dia){
+        $numString = strval($dia);
+        if($dia < 10){
+            $num = '0'. $numString;
+        }else{
+            $num = $numString;
+        }
+
+        return $num;
+    }
+
+    function retornaValorAleatorioDeArray($array){
+        $indieRandomico = array_rand($array,1);
+
+        return $array[$indieRandomico];
+    }
+
+    function formataData($arrData){
+        $data = new DateTime($arrData['year'] . '-' . $arrData['month'] . '-' . $arrData['day'] . ' ' .$arrData['hour'] . ':' . $arrData['minutes'] . ':' . $arrData['seconds']);
+        return $data;
+    }
+
+    function pratoRandomico(){
+        $pratosIds = [1,2,4,6,7,8,9];
+        $indice = array_rand($pratosIds,1);
+
+        return $pratosIds[$indice];
+    }
+
+    function criaPedidoRandomico(){
+        $pratoRandom = pratoRandomico();// indice de um prato
+        $clienteRandomico = clienteRandomico();// model de cliente
+        $enderecoRandomico = enderecoRandomico($clienteRandomico); // endereco randomico do cliente randomico
+        $statusRandomico = statusRandom();
+        $dataRandomica = /* dataRandomica();  */dataHojeComHoraRandomica();
+
+        
+        
+        $pedido = $clienteRandomico->pedidos()->create([
+            'prato_id' => $pratoRandom,
+            'created_at' => $dataRandomica,
+            'Endereco_id' => $enderecoRandomico->id,
+            'status' => $statusRandomico
+        ]);
+    }
+    function criaPedido2(){
+        $contNumPedidos = 100;
+
+        $cont = 0;
+
+        while($cont < $contNumPedidos +1){
+            criaPedidoRandomico();
+            $cont++;
         }
         
-        return $arrFormatado;
-    }
-    $arrayEnderecosFormatados = retornaEnderecoFormatado($arrEndereco);
-    //print_r($arrayEnderecosFormatados);
-    //dd($arrayEnderecosFormatados);
-    function criaCliente($str){
-        $clienteNovo = Cliente::create([
-            'Nome' => $str,
-            'Email' => $str . '@mail.com',
-            'CPF' => '0000000000',
-            'Cep' => '81570000',
-            'Cel' => '9944556677'
-        ]);
-        return $clienteNovo;
+        $pedidos = Pedido::all();
+        dd(count($pedidos));        
     }
 
-    function criaEndereco($cliente, $endereco){
-        $enderecoNovo = Endereco::create([
-            'Rua' => $endereco['Rua'],
-            'Bairro' => $endereco['Bairro'],
-            'Numero' => $endereco['Numero'],
-            'Complemento' => $endereco['Complemento'],
-            'CEP' => $endereco['CEP'],
-            'cliente_id' => $cliente->id
-        ]);
-        return $enderecoNovo;
-    }
+    
+    criaPedido2();
 
-    function criaPedido($cliente, $endereco, $pratoId){
-        $pedidoNovo = $cliente->pedidos()->create([
-            'prato_id' => $pratoId,
-            'Endereco_id' => $endereco->id,
-            'status' => 'Preparando pedido',
-            'Adendo' => 'Gorjeta se chegar em menos de 10 minutos'
-        ]); 
-    }
+    
 
-    function criaPedidos($arrNomes, $arrEnderecos, $arrPratosId){
 
-        //$arrayEnderecosFormatados = retornaEnderecoFormatado($arrEnderecos);
-        $arrPedidos = [];
 
-        for($i = 0; $i < count($arrNomes); $i++){
+    
 
-            $clienteNew = criaCliente($arrNomes[$i]);
+    //$cliente = Cliente::where('id','>',13)->get();
+     
 
-            //$enderecoNew = criaEndereco($clienteNew, $arrEnderecos[$i]);
+     // 0(jan), 1(fev), 2(mar), 3(abr), 4(maio), 5(junho), 6(julho), 7(agosto), 8(setembro), 9(outubro), 10(novembro), 11(dezembro)
 
-            /* $idPrato = array_rand($arrPratosId, 1);
-
-            $pedidoNew = criaPedido($clienteNew, $enderecoNew, $idPrato);
-
-            array_push($arrPedidos, $pedidoNew); */
-
-        }
-
-        //return $arrPedidos;
-    }
-    //criaPedidos($arrNomes, $arrayEnderecosFormatados, $arrIdsPratos);
-    //$cliente = Cliente::all();
-    //dd($cliente[23]->enderecos()->get());
-    //dd($novosPedidos);
-
-    function criaPedido2($pratosIds){
-        $cliente = Cliente::all();
-        for($i = 0; $i < count($cliente); $i++){
-            //dd(array_rand($pratosIds,1));
-            //dd($cliente[$i]->enderecos()->get()[0]->id);
-            $cliente[$i]->pedidos()->create([
-                'prato_id' => array_rand($pratosIds,1),
-                'Endereco_id' => $cliente[$i]->enderecos()->get()[0]->id,
-                'status' => 'TESTE',
-                'adendo' => 'TESTE'
-            ]);
-            
-        }
-    }
-    //criaPedido2($arrIdsPratos);
-
-    $cliente = Cliente::where('id','>',13)->get();
-    //dd($cliente[0]->enderecos()->get());
-
-    /* for($i = 0; $i < count($cliente); $i++){
-        //$newEndereco = criaEndereco($cliente[$i], $arrayEnderecosFormatados[$i]);
-        $prato = $arrIdsPratos[array_rand($arrIdsPratos,1)];
-        $newPedido = criaPedido($cliente[$i], $cliente[$i]->enderecos()->get()[0], $prato);
-    };  */
+    /* $quantosDias = setDiasDoMes(9); // pego quantidade de dias do mes
+    $objArrayParaGrafico = criaArrayDeDias($quantosDias);
+    dd($objArrayParaGrafico); */
     
 });
 

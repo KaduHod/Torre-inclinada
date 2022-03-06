@@ -20,7 +20,8 @@ class Pedido extends Model
         'prato_id',
         'Endereco_id',
         'status',
-        'funcionario_id'
+        'funcionario_id',
+        'created_at'
     ];
 
     public function cliente(){// relation

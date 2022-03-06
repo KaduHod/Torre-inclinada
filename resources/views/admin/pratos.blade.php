@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container centerFlex flexColumn">
-    
+  <div class="table-responsive border">
     <table class="table">
         <thead>
           <tr>
@@ -36,8 +36,9 @@
             @endforeach
         </tbody>
       </table>
+    </div>
       <a href="/prato"><div class="add"></div></a>
-      <div class="notificacao"> 
+      <div class="notificacao2"> 
         <div class="flexNotificacao" >
           <h3>Excluir prato</h3>
           <div class="botoesLado_a_lado">

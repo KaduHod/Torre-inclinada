@@ -12,6 +12,17 @@ use App\Models\Cliente;
 class PedidoController extends Controller
 {
     public function index(){
+        $request = request();
+        $query = Pedido::query();
+        $totPedidos = Pedido::count();
+        $query = $this->filtersFromRequest($request, $query);
+        $TotalDeRegistrosDaPesquisa = $query->count();
+        $pedidos = $query->paginate(30);
+        //dd($pedidos);
+        return view('admin.pedidos', compact('pedidos','totPedidos','TotalDeRegistrosDaPesquisa'));
+    }
+
+    public function form(){
         $pedidosSendoPeparados = count( getPedidosSendoPeparados() );
         $pedidosSendoEntregues = count( getPedidosSendoEntregues() );
         $pedidosEntregues      = count( getPedidosEntregues() );
@@ -182,7 +193,7 @@ class PedidoController extends Controller
             $pedido->save();
         }
 
-        return redirect('/admin/pedidos')->with('msg','Pedido atualizado com sucesso!');
+        return redirect('/Pedidos')->with('msg','Pedido atualizado com sucesso!');
 
 
     }
@@ -191,6 +202,157 @@ class PedidoController extends Controller
         $pedido = Pedido::findOrFail($id)->delete();
 
         return back()->with('msg','Pedido excluído!');
+    }
+
+    public function editarStatus($id){
+        $pedido = Pedido::findOrFail($id);
+        return view ('pedidos.editStatus',compact('pedido'));
+    }
+
+    public function statusUpdate(){
+        //dd(request()->all());
+        $pedido = Pedido::findOrFail(request()->idPedido);
+        $pedido->status = request()->Status;
+        $pedido->save();
+
+        return redirect('/dashboard')->with('msg','Status do pedido atualizado!');
+    }
+
+    private function filtersFromRequest($request, $query){
+        $idsPedidos = [];
+        $arrIdsEnderecos = [];
+        
+        if($request->has('Nome') && !empty($request->Nome)){
+            
+            $arrIdsClientes = [];
+            $cliente = Cliente::where('Nome','LIKE', '%' . $request->Nome . '%' )->get();
+            if(count($cliente) != 0 ){
+                foreach($cliente as $client){
+                    array_push($arrIdsClientes, $client->id);
+                }
+                $query->whereIn('cliente_id', $arrIdsClientes);
+            }
+            
+
+        }
+        if($request->has('prato') && !empty($request->prato)){
+            
+            $arrIdsPrato = [];
+            $prato = Prato::where('Nome prato', 'LIKE','%' . $request->prato . '%')->get();
+            if(count($prato) != 0 ){
+                foreach($prato as $food){
+                    array_push($arrIdsPrato, $food->id);
+                }
+                $query->whereIn('prato_id',  $arrIdsPrato);
+            }
+        }
+        if(!empty($request->enderecoRua) || !empty($request->enderecoNumero) || !empty($request->enderecoBairro)){
+            
+            
+            if($request->has('enderecoRua') && !empty($request->enderecoRua)){
+                
+                $EnderecoRua = Endereco::where('Rua','LIKE','%' . $request->enderecoRua .'%')->get();
+                //dd('até agora tudo certo');
+                if(count($EnderecoRua) != 0){
+                    foreach($EnderecoRua as $pedido){
+                        array_push($arrIdsEnderecos, $pedido->id);
+                    }
+                }
+                
+            }
+            
+             if($request->has('enderecoNumero') && !empty($request->enderecoNumero)){
+                
+                $EnderecoNum = Endereco::where('Numero','LIKE','%' . $request->enderecoNumero .'%')->get();
+                if(count($EnderecoNum) != 0){
+                    foreach($EnderecoNum as $pedido){
+                        array_push($arrIdsEnderecos, $pedido->id);
+                    }
+                }
+                
+            } 
+            
+            if($request->has('enderecoBairro') && !empty($request->enderecoBairro)){
+                $EnderecoBairro = Endereco::where('Bairro','LIKE','%' . $request->enderecoBairro . '%')->get();
+                
+                if(count($EnderecoBairro) != 0){
+                    foreach($EnderecoBairro as $pedido){
+                        array_push($arrIdsEnderecos, $pedido->id);
+                    }
+                }
+            }
+
+
+            $query->whereIn('Endereco_id',$arrIdsEnderecos);
+            
+        }
+        
+        if($request->has('status') && !empty($request->status)){
+             $status = Pedido::where('status','LIKE',"%". $request->status . '%')->get();
+            if(count($status) != 0){
+                foreach($status as $pedido){
+                    array_push($idsPedidos,$pedido->id);
+                }
+                
+            }
+        }
+        if($request->has('Funcionario') && !empty($request->Funcionario)){
+            
+        }
+        
+        if(
+            $request->has('DataPedidoInicio') && !empty($request->DataPedidoInicio) &&
+            $request->has('DataPedidoFim') && !empty($request->DataPedidoFim)
+        ){
+            
+            $dataInicio = (new \DateTime($request->DataPedidoInicio))->format('Y-m-d') . ' 00:00:00';
+            $dataFim =  (new \DateTime($request->DataPedidoFim))->format('Y-m-d') . ' 23:59:59';          
+
+            $query->whereBetween('created_at',[$dataInicio, $dataFim ]);
+            //dd([$dataInicio, $dataFim ]);
+            
+            //dd($query->toSql());
+        }
+        if(
+            $request->has('DataPedidoInicio') && !empty($request->DataPedidoInicio) &&
+            $request->has('DataPedidoFim') && empty($request->DataPedidoFim)
+        ){
+            
+            
+            $dataInicio = (new \DateTime($request->DataPedidoInicio))->format('Y-m-d'). ' 00:00:00';
+            $dataFim = (new \DateTime($request->DataPedidoInicio))->format('Y-m-d'). ' 23:59:59';
+            $query->whereBetween('created_at',[$dataInicio, $dataFim ]);
+        }
+        if(
+            $request->has('DataPedidoInicio') && empty($request->DataPedidoInicio) &&
+            $request->has('DataPedidoFim') && !empty($request->DataPedidoFim)
+        ){
+            
+            $dataInicio = (new \DateTime($request->DataPedidoFim))->format('Y-m-d'). ' 00:00:00';
+            $dataFim = (new \DateTime($request->DataPedidoFim))->format('Y-m-d'). ' 23:59:59';
+            $query->whereBetween('created_at',[$dataInicio, $dataFim ]);
+        }
+
+        if($request->has('Alterado') && !empty($request->Alterado)){
+            $dataInicio = (new \DateTime($request->Alterado))->format('Y-m-d'). ' 00:00:00';
+            $dataFim = (new \DateTime($request->Alterado))->format('Y-m-d'). ' 23:59:59';
+            $query->whereBetween('updated_at',[$dataInicio, $dataFim ]);
+        }
+        if($request->has('Cep') && !empty($request->Cep)){
+            $pedidosCep = Endereco::where('Cep','=', $request->Cep )->get();
+                //dd('até agora tudo certo');
+                if(count($pedidosCep) != 0){
+                    foreach($pedidosCep as $endereco){
+                        array_push($arrIdsEnderecos, $endereco->id);
+                    }
+                }
+        }
+        
+        if(count($idsPedidos)>0)$query->whereIn('id',$idsPedidos);
+        
+        
+        //dd($query->toSql());
+        return $query;
     }
     
 }

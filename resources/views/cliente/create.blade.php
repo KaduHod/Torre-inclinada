@@ -2,7 +2,7 @@
 @section('title','Torre Inlcinada Dashboard')
 @section('content')
 <div class="Envelope">
-    <form action="/cliente/salvar" method="post" id="form" class="formCliente ">
+    <form action="/cliente/salvar" method="post" id="form" class="formCliente sombra">
         @csrf 
         <div class="formAmarelo">
             <h3>Cliente</h3>

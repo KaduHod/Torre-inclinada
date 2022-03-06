@@ -1,0 +1,17 @@
+.filter{
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+.filterInputCard{
+    display: flex;
+    flex-direction: column;
+
+}
+.filterInputCard label{
+   margin-bottom: 20px;
+}

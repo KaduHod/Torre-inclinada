@@ -9,7 +9,7 @@
                 
             </div>
             <div class="linkContainerAdminOption">
-                <a href="/admin/pedidos"><button class="btn btn-dark">Gerenciar pedidos</button></a>
+                <a href="/Pedidos"><button class="btn btn-dark">Gerenciar pedidos</button></a>
             </div>
         </div>
         <div class="cardAdmin border">
@@ -17,7 +17,7 @@
                 
             </div>
             <div class="linkContainerAdminOption">               
-                <a href="/admin/clientes"><button class="btn btn-dark">Gerenciar clientes</button></a>
+                <a href="/Clientes"><button class="btn btn-dark">Gerenciar clientes</button></a>
             </div>
         </div>
         <div class="cardAdmin border">
@@ -34,9 +34,18 @@
                 
             </div>
             <div class="linkContainerAdminOption">
-               <a href="/admin/faturamento"><button class="btn btn-dark">Gerenciar Faturamento</button></a> 
+               <a href="/admin/faturamento"><button class="btn btn-dark">Visualizar Faturamento</button></a> 
             </div>
         </div>
+        <div class="cardAdmin border">
+            <div class="infoCardAdmin" id="Funcionarios">
+                
+            </div>
+            <div class="linkContainerAdminOption">
+               <a href="/admin/funcionario"><button class="btn btn-dark">Visualizar Funcionarios</button></a> 
+            </div>
+        </div>
+        
     </div>
 </div>
 

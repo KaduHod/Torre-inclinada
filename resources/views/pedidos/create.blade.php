@@ -4,7 +4,7 @@
 <form action="/Pedidos/store" id="pedidoForm" class="" method="post">
     @csrf
     {{-- Prato --}}
-    <div class="divCustom border">
+    <div class="divCustom border sombra marginTop">
         <div id="pratoDoDia2 " class="">
             <h3 class="marginBottom">Escolher prato do pedido</h3>
             <label for="Pratos" class="marginBottom">

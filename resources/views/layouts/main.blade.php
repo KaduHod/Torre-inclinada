@@ -33,13 +33,31 @@
     <link rel="stylesheet" href="/css/containers.css">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/filter.css">
     
     
     <style>
         
         
         
-
+        :root{
+            /*Paleta de cores
+            ['#211e19','#073f5a','#b1d7a8','#55725c','#eae8ed','#063045','#D0CDD4']
+            */
+            --preto:#1e1b16;
+            --azulescuro:#247593;
+            --azul:#4c889e;
+            --azulclaro:#8fbed0;
+            --azulmaisclaro: #c0dae0;
+            --verdeclaro:#8cb27f;
+            --verdeescuro:#55725c;
+            --branco:#eae8ed;
+            --brancoclaro: #f0f0f0; 
+            --brancoescuro:#d0cdd4;   
+        }
+        .sombra{
+            box-shadow: 2px 4px 15px rgb(148 146 146);
+        }
         *{
             font-family: 'Nunito', sans-serif;
             margin:0;
@@ -88,6 +106,9 @@
                 color: rgba(218, 230, 212, 0)
             }
         }
+        body{
+            background-color: rgb(243, 243, 243)
+        }
         .add{
             width: 70px;
             height: 70px;
@@ -116,7 +137,7 @@
                 <li><a id='a' href="/prato">Criar prato do dia</a></li>
                 <li><a id='a' href="/Pedidos/create">Criar pedido</a></li>
                 <li><a id='a' href="/cliente/criar">Criar cliente</a> </li>
-                <li><a id='a' href="/admin"> Admin page</a></li>
+                <li><a id='a' href="/admin"> Administrador</a></li>
             </ul>
         </div>
         <div id="profileArea">

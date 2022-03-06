@@ -9,11 +9,11 @@
     display: contents;
     justify-content: space-around;
     align-items: center;
-    width: 70%;
+    width: fit-content;
     height: fit-content;
     flex-direction: column;
     display: flex;
-    padding: 20px;
+    padding: 40px
 }
 form label{
     display: flex;

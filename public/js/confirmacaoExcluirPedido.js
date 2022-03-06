@@ -1,4 +1,8 @@
-var divNotificacao = document.getElementsByClassName('notificacao')[0]
+if(document.getElementsByClassName('notificacao2')[0]){
+  var divNotificacao = document.getElementsByClassName('notificacao2')[0]
+}else{
+  var divNotificacao = document.getElementsByClassName('notificacao')[0]
+}
     
 var fechar = document.getElementById('fecharNotificacao')
     fechar.addEventListener('click', fechaConfirmacao)
@@ -13,11 +17,11 @@ var iconesExcluir = [... document.getElementsByName('trash-outline')]
   
 function setPrefix(){
   let url_atual = window.location.href;
-  if(url_atual.indexOf('clientes') > -1){
+  if(url_atual.indexOf('Clientes') > -1){
 
     return '/cliente/exclude/'
   }
-  if(url_atual.indexOf('pedidos') > -1){
+  if(url_atual.indexOf('Pedidos') > -1){
     return '/Pedidos/exclude/'
   }
   if(url_atual.indexOf('pratos') > -1){
@@ -25,10 +29,12 @@ function setPrefix(){
   }
 }
 
-var prefix = setPrefix()
+
 
 function confirmacao(){
+  let prefix = setPrefix()
   let verifica = [... divNotificacao.classList].indexOf('fade-in') == -1 ? true : false
+  console.log(prefix)
   if(verifica){
     divNotificacao.classList.add('fade-in')
     excluir.href = `${prefix}${this.id}`
@@ -40,6 +46,7 @@ function fechaConfirmacao(){
   let verifica = [... divNotificacao.classList].indexOf('fade-in') > -1 ? true : false
   if(verifica){
     divNotificacao.classList.remove('fade-in')
+    divNotificacao.getElementsByClassName.top = 'none'
     excluir.href = '#'
   } 
 }

@@ -5,7 +5,7 @@
 <form action="/Pedidos/update" method="POST" id="form" class="conteiner  flexColumn">
     @csrf
     <input type="hidden" name="idPedido" id="idPedido" value="{{$pedido->id}}">
-    <div class="flex border" id="Campode_formularios">
+    <div class="flex border sombra" id="Campode_formularios">
         <div id="pratoDoDia2 " class=" campoFomr">
             <h3 class="marginBottom">Alterar  prato do pedido</h3>
             <label for="Pratos" class="marginBottom">
