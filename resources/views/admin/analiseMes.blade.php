@@ -76,6 +76,8 @@
               </table>
         </div>
     </div>   
+
+    <a href="/admin/relatorio/{{$mes}}" class="btn btn-dark">Download do relatorio</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/analise.js"></script>

@@ -33,7 +33,7 @@ class dashboardController extends Controller
             
 
 
-        return view('dashboard2', compact(
+        return view('dashboardCel', compact(
                                             'prato',
                                             'pratos',
                                             'data',

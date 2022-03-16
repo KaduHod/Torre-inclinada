@@ -1,10 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.mainCelphone')
 @section('title','Torre Inlcinada Dashboard')
 @section('content')
 <div class="Envelope">
-    <form action="/cliente/salvar" method="post" id="form" class="formCliente sombra">
+    <form action="/cliente/salvar" method="post" id="form" class="formCliente">
         @csrf 
-        <div class="formAmarelo">
+        <div class="FormPedido BCbranco borderRadius marginTopBottom ">
             <h3>Cliente</h3>
             <label for="NomeCliente">
                 <span>Nome</span>
@@ -27,7 +27,7 @@
                 <input type="text" name="CelCliente" class="inputCustom">
             </label>
         </div>
-        <div class="formAmarelo">
+        <div class="FormPedido BCbranco marginTopBottom borderRadius">
             <h3>Endereço</h3>
             <label for="RuaCliente">
                 <span>Rua</span>

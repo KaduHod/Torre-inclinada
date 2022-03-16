@@ -45,7 +45,6 @@
                <a href="/admin/funcionario"><button class="btn btn-dark">Visualizar Funcionarios</button></a> 
             </div>
         </div>
-        
     </div>
 </div>
 

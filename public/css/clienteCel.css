@@ -1,0 +1,14 @@
+label span{
+    font-weight: bolder;
+    color: var(--letraIOS);
+}
+#form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#form div{
+    width: 90%;
+    padding: 10px;
+}

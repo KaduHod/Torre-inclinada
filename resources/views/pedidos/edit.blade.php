@@ -134,9 +134,9 @@
                     <div id="EnderecoInfo" class="hidden">
                         <ul id="enderecoCompleto" >
                             <li><span>Rua </span>: </li>
-                            <li><span>Bairro</span>: </li>
-                            <li><span>Numero</span>:  </li>
-                            <li><span>Complemento</span>: </li>
+                            <li><span>Bairro</span> : </li>
+                            <li><span>Numero</span> :  </li>
+                            <li><span>Complemento</span> : </li>
                         </ul>
                     </div>
                     <div id='NovoEndereco' class="marginTop">

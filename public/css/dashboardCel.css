@@ -1,0 +1,159 @@
+.section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin: 20px 0px 20px 0px;
+}
+.Card{
+    width: 90%;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.CardTittle{
+    width: 100%;
+    display: flex;
+    color: var(--letraIOS);
+    align-items: center;
+    justify-content: center;
+}
+.CardInfo{
+    width: 100%;
+    height: 30px;
+    background-color: var(--brancoIOS);
+    display: flex;
+    align-items: center;
+    color: var(--letraIOS);
+    
+    
+}
+.CardInfoContent{
+    width: 100%;
+    background-color: var(--brancoIOS);
+    overflow: auto;
+    
+}
+.CardInfoContent a{
+    text-decoration: none;
+    color: var(--letraIOS);
+}
+.growDown{
+    height: 0px;
+    animation: growDown 200ms ease-out  forwards;
+}
+.growDown ul{
+    display: block;
+}
+.growUp ul{
+    display: none;
+}
+.growUp table{
+    display: none;
+}
+
+@keyframes growDown {
+    from{
+        height: 0px;
+        padding: 5px;
+    }
+    to{
+        height: 320px ;
+        padding: 5px;
+    }
+}
+.growUp{
+    height: 300px;
+    animation: growUp 100ms ease-out forwards;
+}
+@keyframes growUp {
+    from{
+        height: 200px;
+    }
+    to{
+        height: 0px;
+    }
+}
+.setaParaCima{
+    transform: rotate(180deg);
+}
+.CardInfoTittle{
+    width: 80%;
+}
+.icon{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#pratoDoDia{
+    padding: 10px;
+    height: fit-content;
+    color: var(--letraIOS);
+}
+#pratoDoDia a{
+    display: block;
+    margin: 0 auto;
+}
+ul{
+    list-style: none;
+    margin: 0;
+}
+.borderIOS{
+    border-top: 1px solid var(--bordaIOS);
+    border-bottom: 1px solid var(--bordaIOS);
+}
+
+.CardInfoContent table{
+    padding: 5px 5px 5px 5px;
+    width: 100vw;
+    overflow: auto;
+}
+.CardInfoContent tr{
+    width: 100vw;
+    overflow: auto;
+    border-bottom: 1px solid var(--bordaIOS);
+    color:var(--letraIOS)
+}
+.colorGreen{
+    color: rgb(151, 204, 151);
+}
+.colorYellow{
+    color: rgb(190, 190, 136);
+}
+.colorRed{
+    color: rgb(184, 140, 140);
+}
+.CardPequeno{
+    border: 1px solid var(--bordaIOS);
+    width: calc(45% - 30px);
+    padding: 5px;
+    height: 80px;
+    margin: 10px ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+.ContainerIconValue{
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px 0px 10px;
+}
+
+.CardPequenoTittle{
+    padding: 0px 5px 0px 5px;
+    text-align: left;
+}
+.CardPequenoIcon{
+    width: 22px;
+    height: 22px;
+}
+.ContainerCardPequeno{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}

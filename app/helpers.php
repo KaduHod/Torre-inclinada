@@ -91,6 +91,9 @@ function inicioEfimDeMes($mes, $query){
     $query->whereBetween('created_at',[$dataInicio,$dataFim]);
     return $query;
 }
+
+
+
 function topCincoclientes($mes){
     $trintaDias = ['04','06','09','11'];
 
@@ -216,4 +219,6 @@ function getNomeMes($i){
         if($i == '10') return 'Outubro'; 
         if($i == '11') return 'Novembro';
         if($i == '12') return 'Dezembro';  
-}
+};
+
+

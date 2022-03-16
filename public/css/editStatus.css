@@ -1,0 +1,26 @@
+
+.ContainerComPaddingPadrao{
+    padding: 10px;
+    color: var(--letraIOS);
+}
+#infoPedido li{
+    list-style: none;
+}
+#infoPedido span{
+    font-weight: bolder;
+}
+#infoPedido a{
+    text-decoration: none;
+    color: var(--letraIOS);
+}
+#editPedidoContainer{
+    padding: 10px
+}
+#formStatus{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.selectStatus{
+    height: 40px;
+}

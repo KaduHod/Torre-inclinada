@@ -22,11 +22,11 @@
                     </div>
                 </div>
                 <div class="leftSearchContainer " id="dataDia">
-                    <div class="leftOption" name='relatorio'>
-                        <span class="selected"><ion-icon class="iconOption" name="document-text-outline"></ion-icon></span>
-                    </div>
                     <div class="leftOption" name='pedidos'>
-                        <span><ion-icon class="iconOption" name="list-outline"></ion-icon></span>
+                        <span class="selected"><ion-icon class="iconOption" name="list-outline"></ion-icon></span>
+                    </div>
+                    <div class="leftOption" name='relatorio'>
+                        <span ><ion-icon class="iconOption" name="document-text-outline"></ion-icon></span>
                     </div>
                     <div class="leftOption" name='alguma'>
                         <span><ion-icon class="iconOption" name="musical-notes-outline"></ion-icon></span>
@@ -36,7 +36,55 @@
             </div>
         </div>
         <div class="divOptionContainer">
-            <div class="divOption showDiv" name='relatorio' >
+            <div class="divOption showDiv" id="pedidos" name='pedidos'>
+                <h3>Pedidos de hoje</h3>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Contato</th>
+                        <th scope="col">Prato</th>
+                        <th scope="col">Endereco</th>
+                        <th scope="col" class="pointer" id="Status">Status</th>
+                        <th scope="col">Preço</th>
+                        <th scope="col">Hora</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($pedidos as $pedido)
+                        
+                        <tr class="pedidoLinha" id="{{$pedido->id}}">
+                            <th>{{$pedido->cliente->Nome}}</th>
+                            <td>{{$pedido->cliente->Cel}}</td>
+                            <td>{{$pedido->prato['Nome prato']}}</td>
+                            <td>{{$pedido->Endereco->Rua}},{{$pedido->Endereco->Numero}} - {{$pedido->Endereco->Bairro}}</td>
+                            @php
+                                $status = $pedido->status;
+                                if($status == 'Entregue') $class = 'colorGreen1';
+                                if($status == 'Saiu para entrega') $class = 'colorYellow';
+                                if($status == 'Preparando pedido') $class = 'colorGreenDark';
+                                if($status == 'Cancelado') $class = 'colorRed';
+                                
+                            @endphp
+
+                            <td class="{{$class}} status">{{$pedido->status}}</td>
+                            <td>R$ {{$pedido->prato->preco}}</td>
+                            @php
+                                $horaArr = $pedido->created_at->toArray();
+
+                                if($horaArr['minute'] < 10) $horaArr['minute'] = '0'.$horaArr['minute'];
+                                    
+                                $hora = $horaArr['hour'] . ':' . $horaArr['minute'];
+                            @endphp
+                            <td>{{$hora}}</td>
+
+                        </tr>
+                        
+                        @endforeach
+                    </tbody>
+                  </table>
+            </div>
+            <div class="divOption hiddenDiv " name='relatorio' >
                 <div id="salesReport">
                     <div class="infoDashboard2">
                         <div class="innerInfoDashboard">
@@ -86,56 +134,9 @@
 
                 
             </div>
-            <div class="divOption hiddenDiv" id="pedidos" name='pedidos'>
-                <h3>Pedidos de hoje</h3>
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Contato</th>
-                        <th scope="col">Prato</th>
-                        <th scope="col">Endereco</th>
-                        <th scope="col" class="pointer" id="Status">Status</th>
-                        <th scope="col">Preço</th>
-                        <th scope="col">Hora</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($pedidos as $pedido)
-                        
-                        <tr class="pedidoLinha" id="{{$pedido->id}}">
-                            <th>{{$pedido->cliente->Nome}}</th>
-                            <td>{{$pedido->cliente->Cel}}</td>
-                            <td>{{$pedido->prato['Nome prato']}}</td>
-                            <td>{{$pedido->Endereco->Rua}},{{$pedido->Endereco->Numero}} - {{$pedido->Endereco->Bairro}}</td>
-                            @php
-                                $status = $pedido->status;
-                                if($status == 'Entregue') $class = 'colorGreen1';
-                                if($status == 'Saiu para entrega') $class = 'colorYellow';
-                                if($status == 'Preparando pedido') $class = 'colorGreenDark';
-                                if($status == 'Cancelado') $class = 'colorRed';
-                                
-                            @endphp
-
-                            <td class="{{$class}} status">{{$pedido->status}}</td>
-                            <td>R$ {{$pedido->prato->preco}}</td>
-                            @php
-                                $horaArr = $pedido->created_at->toArray();
-
-                                if($horaArr['minute'] < 10) $horaArr['minute'] = '0'.$horaArr['minute'];
-                                    
-                                $hora = $horaArr['hour'] . ':' . $horaArr['minute'];
-                            @endphp
-                            <td>{{$hora}}</td>
-
-                        </tr>
-                        
-                        @endforeach
-                    </tbody>
-                  </table>
-            </div>
+            
             <div class="divOption hiddenDiv" name='alguma'>
-                Alguma opção
+                Em breve
             </div>
         </div>
         

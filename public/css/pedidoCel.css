@@ -1,0 +1,26 @@
+.FormPedido{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#descPratos{
+    display: flex;
+    flex-direction: column;
+}
+.pratoDesc{
+    color: var(--letraIOS);
+}
+.pratoDesc span{
+    color: var(--letraIOS);
+    font-weight: bold;
+}
+#descPratos{
+    padding: 10px;
+}
+.FormularioCliente{
+    width:100%;
+}
+.FormularioCliente label{
+    width: 100%;
+}

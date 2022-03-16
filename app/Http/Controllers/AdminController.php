@@ -8,6 +8,8 @@ use App\Models\Pedido;
 use App\Models\Prato;
 
 
+
+
 class AdminController extends Controller
 {
     public function index(){
@@ -69,29 +71,7 @@ class AdminController extends Controller
         return view('admin.faturamento');
     }
 
-    public function funcionario(){
-        return view('admin.createFuncionario');
-    }
-
-    public function storeFuncionario(){
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        return back()->with('msg','Funcionario registrado');
-    }
-
-    public function updateFuncionario(){
-
-    }
+    
 
     public function analiseMes($mes){
         $query = queryDoMes($mes);
@@ -115,10 +95,12 @@ class AdminController extends Controller
             'nomeMes',
             'pratos',
             'TopCincoclientes',
-            'qtdNovosClientes'
+            'qtdNovosClientes',
+            'mes'
         ));
         
     }
+    
 
     private function inicioEfimDeMes($mes, $query){
         $trintaDias = ['04','06','09','11'];

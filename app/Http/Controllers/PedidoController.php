@@ -41,7 +41,7 @@ class PedidoController extends Controller
         $clientes = Cliente::all();
         
         
-        return view('pedidos.create', compact('pratos','clientes'));
+        return view('pedidos.createCel', compact('pratos','clientes'));
     }
 
     public function store(){
@@ -206,7 +206,7 @@ class PedidoController extends Controller
 
     public function editarStatus($id){
         $pedido = Pedido::findOrFail($id);
-        return view ('pedidos.editStatus',compact('pedido'));
+        return view ('pedidos.editStatusCel',compact('pedido'));
     }
 
     public function statusUpdate(){

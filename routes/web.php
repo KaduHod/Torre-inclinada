@@ -6,6 +6,8 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PratoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\PdfController;
 use App\Models\Cliente;
 use App\Models\Pedido;
 use App\Models\Prato;
@@ -24,6 +26,7 @@ use App\Models\Endereco;
 Route::group(['middleware' => 'auth'], function (){
 
     Route::get('/dashboard', [dashboardController::class, 'index']); 
+    
     Route::get('/', function(){return redirect('/dashboard');})->name('dashboard');
 
     // Prato
@@ -35,7 +38,6 @@ Route::group(['middleware' => 'auth'], function (){
 
     // Pedido
     Route::get('/Pedidos',[PedidoController::class, 'index']);
-    Route::get('/Pedidos/criar',[PedidoController::class, 'form']);
     Route::get('/Pedidos/create',[PedidoController::class, 'create']);
     Route::post('/Pedidos/store',[PedidoController::class, 'store']);
     Route::get('/Pedidos/edit/{id}',[PedidoController::class, 'edit']);//Pedidos/update
@@ -53,14 +55,36 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/cliente/edit/{id}',[ClienteController::class, 'edit']);
     Route::post('/cliente/update',[ClienteController::class, 'update']);
 
+
+    Route::get('/logout',function(){
+        Auth::logout();
+        \Session::flush();
+
+        return redirect('/');
+    });
+
     // Admin
-    Route::get('/admin', [AdminController::class,'index']);
-    Route::get('/admin/pedidos', [AdminController::class,'pedidos']);
-    Route::get('/admin/clientes', [AdminController::class,'clientes']);
-    Route::get('/admin/pratos', [AdminController::class,'pratos']);
-    Route::get('/admin/faturamento', [AdminController::class,'faturamento']);
-    Route::get('/admin/faturamento/{mes}', [AdminController::class,'analiseMes']);
-    Route::get('/admin/funcionario', [AdminController::class,'funcionario']);
+    Route::group(['middleware' => 'admin'], function(){
+       
+        Route::get('/admin', [AdminController::class,'index']);
+        Route::get('/admin/pedidos', [AdminController::class,'pedidos']);
+        Route::get('/admin/clientes', [AdminController::class,'clientes']);
+        Route::get('/admin/pratos', [AdminController::class,'pratos']);
+        Route::get('/admin/faturamento', [AdminController::class,'faturamento']);
+        Route::get('/admin/faturamento/{mes}', [AdminController::class,'analiseMes']);
+        Route::get('/admin/funcionario', [FuncionarioController::class,'index']);
+        Route::get('/admin/funcionario/create', [FuncionarioController::class,'create']);
+        Route::post('/admin/funcionario/store', [FuncionarioController::class,'store']);
+        Route::get('/admin/funcionario/edit/{id}', [FuncionarioController::class,'edit']);
+        Route::post('/admin/funcionario/update', [FuncionarioController::class,'update']);
+        Route::get('/admin/funcionario/excluir/{id}', [FuncionarioController::class,'delete']);
+        Route::get('/admin/funcionario/simulate/{id}', [FuncionarioController::class,'simulate']);
+        Route::get('/gerarRelatorio',[PdfController::class, 'listarPedidos']);
+        Route::get('/admin/relatorio/{mes}',[PdfController::class, 'relatorioMes']);
+
+
+    });
+    
 });
 
 

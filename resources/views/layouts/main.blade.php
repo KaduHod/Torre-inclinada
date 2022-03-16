@@ -137,7 +137,10 @@
                 <li><a id='a' href="/prato">Criar prato do dia</a></li>
                 <li><a id='a' href="/Pedidos/create">Criar pedido</a></li>
                 <li><a id='a' href="/cliente/criar">Criar cliente</a> </li>
+                @if(Auth::user()->staff == 'Admin' || Auth::user()->staff == 'Desenvolvedor')
                 <li><a id='a' href="/admin"> Administrador</a></li>
+                @endif
+                
             </ul>
         </div>
         <div id="profileArea">

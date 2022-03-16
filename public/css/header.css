@@ -61,3 +61,22 @@ header{
 #seta:hover{
     margin-top: 10px;
 }
+
+@media only screen and (max-width: 760px) {
+    header {
+        height: 10vh;
+        display: block;
+        position: relative;
+        top: -101%;
+    }
+    #centerHeader a{
+        font-size: 15px;
+        overflow:hidden;
+    }
+    #centerHeader ul{
+        overflow:hidden;
+    }
+    #imageLogo{
+        display: none;
+    }
+}

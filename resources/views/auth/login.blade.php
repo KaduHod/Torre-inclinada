@@ -50,10 +50,10 @@
                 <x-button class="ml-3">
                     {{ __('Logar') }}
                 </x-button>
-                <x-button class="ml-3">
+                {{-- <x-button class="ml-3">
                     <a href="/register">{{ __('Registre-se') }}</a>
                     
-                </x-button>
+                </x-button> --}}
             </div>
         </form>
     </x-auth-card>
