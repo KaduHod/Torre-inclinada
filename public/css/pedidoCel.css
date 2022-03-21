@@ -24,3 +24,18 @@
 .FormularioCliente label{
     width: 100%;
 }
+.radioInput{
+    opacity: 0;
+}
+.label{
+    width: fit-content;
+    transition: 100ms;
+    padding: 10px;
+    border: 1px solid var(--bordaIOS);
+}
+
+.labelSelected{
+    margin-left: 10px;
+    animation: shadow 200ms ease-in 0ms forwards;
+    border: 2px solid var(--verdeescuro);
+}

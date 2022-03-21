@@ -33,14 +33,14 @@
             <select name="Status" class="borderRadius selectStatus" id="">
                 @if($pedido->status == 'Preparando pedido')
                     <option value="{{$pedido->status}}">{{$pedido->status}}</option>
-                    <option value="Pronto para entrega">Pronto para entrega</option>
+                    {{-- <option value="Pronto para entrega">Pronto para entrega</option> --}}
                     <option value="Em rota de entraga">Em rota de entraga</option>
                     <option value="Entregue">Entregue</option> 
                     <option value="Cancelado">Cancelar</option>
                 @endif
                 @if($pedido->status == 'Entregue')
                     <option value="{{$pedido->status}}">{{$pedido->status}}</option>
-                    <option value="Pronto para entrega">Pronto para entrega</option>
+                    {{-- <option value="Pronto para entrega">Pronto para entrega</option> --}}
                     <option value="Em rota de entraga">Em rota de entraga</option>
                     <option value="Preparando pedido">Preparando pedido</option>
                     <option value="Cancelado">Cancelar</option>
@@ -48,24 +48,24 @@
                 @endif
                 @if($pedido->status == 'Em rota de entraga' || $pedido->status == 'Saiu para entrega')
                     <option value="{{$pedido->status}}">{{$pedido->status}}</option>
-                    <option value="Pronto para entrega">Pronto para entrega</option>
-                    <option value="Entregue">Entregue</option>
+                    {{-- <option value="Pronto para entrega">Pronto para entrega</option> --}}
+                     <option value="Entregue">Entregue</option>
                     <option value="Preparando pedido">Preparando pedido</option>
                     <option value="Cancelado">Cancelar</option>
                 @endif
-                @if($pedido->status == 'Pronto para entrega')
+               {{--  @if($pedido->status == 'Pronto para entrega')
                     <option value="{{$pedido->status}}">{{$pedido->status}}</option>
                     <option value="Em rota de entraga">Em rota de entraga</option>
                     <option value="Entregue">Entregue</option>
                     <option value="Preparando pedido">Preparando pedido</option>
                     <option value="Cancelado">Cancelar</option>
-                @endif
+                @endif --}}
                 @if($pedido->status == 'Cancelado')
                     <option value="{{$pedido->status}}">Cancelado</option>
                     <option value="Em rota de entraga">Em rota de entraga</option>
                     <option value="Entregue">Entregue</option>
                     <option value="Preparando pedido">Preparando pedido</option>
-                    <option value="Pronto para entrega">Pronto para entrega</option>
+                    {{-- <option value="Pronto para entrega">Pronto para entrega</option> --}}
                 @endif
             </select>
 

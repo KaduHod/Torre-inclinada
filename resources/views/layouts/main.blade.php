@@ -107,6 +107,8 @@
             }
         }
         body{
+            display: flex;
+            flex-direction: column;
             background-color: rgb(243, 243, 243)
         }
         .add{
@@ -123,29 +125,37 @@
             
             
         }
+   
         
     </style>
     
 </head>
 <body>
-    <header>
-        <div id="imageLogo">
-            <img src="/img/torre.jpg" alt="" id='Logo'>
+    <header class="">
+        <div id="headerMenuShowBlock" class="menuHidden">
+            <div id="imageLogo">
+                <img src="/img/torre.jpg" alt="" id='Logo'>
+            </div>
+            <div id="centerHeader">
+                <ul>
+                    <li><a id='a' href="/">Dashboard</a></li>
+                    <li><a id='a' href="/prato">Criar prato do dia</a></li>
+                    <li><a id='a' href="/Pedidos/create">Criar pedido</a></li>
+                    <li><a id='a' href="/cliente/criar">Criar cliente</a> </li>
+                    @if(Auth::user()->staff == 'Admin' || Auth::user()->staff == 'Desenvolvedor')
+                    <li><a id='a' href="/admin"> Administrador</a></li>
+                    @endif
+                    
+                </ul>
+            </div>
+            <div id="profileArea">
+                <div>{{Auth::user()->name}}</div>
+                <div id="seta"></div>
+            </div>
+            
         </div>
-        <div id="centerHeader">
-            <ul>
-                <li><a id='a' href="/prato">Criar prato do dia</a></li>
-                <li><a id='a' href="/Pedidos/create">Criar pedido</a></li>
-                <li><a id='a' href="/cliente/criar">Criar cliente</a> </li>
-                @if(Auth::user()->staff == 'Admin' || Auth::user()->staff == 'Desenvolvedor')
-                <li><a id='a' href="/admin"> Administrador</a></li>
-                @endif
-                
-            </ul>
-        </div>
-        <div id="profileArea">
-            <div>{{Auth::user()->name}}</div>
-            <div id="seta"></div>
+        <div id="HamburguerMenu">
+            <ion-icon id="IconeMenu" name="menu-outline"></ion-icon>
         </div>
     </header>
     <main>
@@ -164,6 +174,29 @@
         document.getElementById('Logo').addEventListener('click',()=>{
             window.location.replace('http://localhost:8000/dashboard')
         },false)
+
+        let menu = document.getElementById('HamburguerMenu')
+        menu.addEventListener('click', handleMenu)
+
+        function handleMenu(){
+            let menu = document.getElementById('headerMenuShowBlock')
+            let classes = [...menu.classList]
+
+
+            classes.indexOf('menuShow') > -1 ? escondeMenu() : mostraMenu()
+        }
+
+        function escondeMenu(){
+            let menu = document.getElementById('headerMenuShowBlock')
+            menu.classList.remove('menuShow')
+            menu.classList.add('menuHidden')
+        }
+        function mostraMenu(){
+            let menu = document.getElementById('headerMenuShowBlock')
+            menu.classList.remove('menuHidden')
+            menu.classList.add('menuShow')
+            
+        }
        
     </script>
 

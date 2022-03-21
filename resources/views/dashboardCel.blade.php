@@ -165,6 +165,7 @@
         <table>
             <tr>
                 <th>Cliente</th>
+                <th>Cel</th>
                 <th>Prato</th>
                 <th>Endereço</th>
                 <th>Status</th>
@@ -180,6 +181,7 @@
                 <td>{{$pedido->Endereco->Rua}},{{$pedido->Endereco->Numero}} - {{$pedido->Endereco->Bairro}}</td>
                 @php
                     $status = $pedido->status;
+                    $class = '';
                         if($status == 'Entregue') $class = 'colorGreen';
                         if($status == 'Saiu para entrega') $class = 'colorYellow';
                         if($status == 'Preparando pedido') $class = 'colorYellow';

@@ -2,9 +2,9 @@
 @section('title','Torre Inlcinada Dashboard')
 @section('content')
 
-<div class="container centerFlex flexColumn">
+<div class="Container centerFlex flexColumn">
   
-  <form action="/Pedidos" method="get" class="filter flexColumn border">
+  <form action="/Pedidos" id="formPedidos" method="get" class="filter flexColumn border">
     @csrf
     <h1>Pedidos</h1>
     <div class="filter">
@@ -67,8 +67,8 @@
     <span>Total de registros da pesquisa: {{$TotalDeRegistrosDaPesquisa}}</span> 
   @endif
   
-    <div class="table-responsive border">
-      <table class="table " >
+    <div class="tabela  border">
+      <table class="table" >
         <thead>
           <tr>
             <th scope="col">id</th>

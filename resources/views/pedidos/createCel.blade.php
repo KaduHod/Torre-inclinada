@@ -2,8 +2,9 @@
 @section('title','Torre Inlcinada Dashboard')
 @section('content')
 <form action="/Pedidos/store" id="pedidoForm" class="FormPedido" method="post">
-    <h1 class="TituloPadraoConfig">Criar pedido</h1>
     @csrf
+    <h1 class="TituloPadraoConfig">Criar pedido</h1>
+    
     {{-- Prato --}}
     <div class="CardForm BCbranco borderRadius marginTopBottom">
         <h4 class="TituloPadraoConfig">Escolher prato</h4>
@@ -44,7 +45,7 @@
         
     </div>
     
-    <div class="section borderIOS">
+    <div class="section borderIOS" id="CadastrarCliente">
         <div class="CardInfo ">
             {{--Opção estilo IOS--}}
             <div class="icon">
@@ -53,8 +54,8 @@
             <div class="CardInfoTittle">
                 Cadastrar cliente
             </div>
-            <div class="icon showOptions">
-                <ion-icon name="caret-down-outline"></ion-icon>
+            <div class="icon showOptions" >
+                <ion-icon name="caret-down-outline" class="caret"></ion-icon>
             </div>
         </div>
     
@@ -62,23 +63,23 @@
             <div class='FormularioCliente'>
                 <label for="NomeCliente">
                     <span>Nome</span>
-                    <input type="text" name="NomeCliente" id="NomeCliente" class="inputCustom">
+                    <input type="text" name="NomeNovoCliente" id="NomeCliente" class="inputCustom">
                 </label>
                 <label for="EmailCliente">
                     <span>Email</span>
-                    <input type="email" name="EmailCliente" id="EmailCliente" class="inputCustom">
+                    <input type="email" name="EmailNovoCliente" id="EmailCliente" class="inputCustom">
                 </label>
                 <label for="CPFCliente">
                     <span>CPF</span>
-                    <input type="text" name="CPFCliente" id="CPFCliente" class="inputCustom">
+                    <input type="text" name="CPFNovoCliente" id="CPFCliente" class="inputCustom">
                 </label>
                 <label for="CEPCliente">
                     <span>CEP</span>
-                    <input type="text" name="CEPCliente" id="CEPCliente" class="inputCustom">
+                    <input type="text" name="CEPNovoCliente" id="CEPCliente" class="inputCustom">
                 </label>
                 <label for="CelCliente">
                     <span>Celular/telefone</span>
-                    <input type="text" name="CelCliente" id="CelCliente" class="inputCustom">
+                    <input type="text" name="CelNovoCliente" id="CelCliente" class="inputCustom">
                 </label>
                 <label for="RuaNovoCliente">
                     <span>Rua:</span>
@@ -104,7 +105,8 @@
             
         </div>
     </div>
-    <div class="section borderIOS">
+
+    <div class="section borderIOS" id="ClienteJaCadastrado">
         <div class="CardInfo ">
             {{--Opção estilo IOS--}}
             <div class="icon">
@@ -113,8 +115,8 @@
             <div class="CardInfoTittle">
                 Cliente já cadastrado 
             </div>
-            <div class="icon showOptions">
-                <ion-icon name="caret-down-outline"></ion-icon>
+            <div class="icon showOptions" >
+                <ion-icon name="caret-down-outline" class="caret"></ion-icon>
             </div>
         </div>
     
@@ -149,7 +151,7 @@
                             Cadastrar novo endereço
                         </div>
                         <div class="icon showOptions">
-                            <ion-icon name="caret-down-outline"></ion-icon>
+                            <ion-icon name="caret-down-outline" class="caret2"></ion-icon>
                         </div>
                     </div>
                 
@@ -189,19 +191,20 @@
                             Endereços cadastrados
                         </div>
                         <div class="icon showOptions">
-                            <ion-icon name="caret-down-outline"></ion-icon>
+                            <ion-icon name="caret-down-outline" class="caret2"></ion-icon>
                         </div>
                     </div>
                 
                     <div class="CardInfoContent growUp ">
-                        <div class="flexCloumn CemPorCento">
-
+                        <div class="flexCloumn CemPorCento" id="Enderecos">
+                                                    
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <button type="submit" class="btn btn-dark">Salvar</button>
     
 </form>
 {{-- <script src="/js/pedidosCreate.js"></script> --}}
@@ -215,6 +218,21 @@
             'Descricão' : '{{$prato->descricao}}',
             'Preço' : '{{$prato->preco}}'
         })
+    @endforeach
+
+    let clientes = []
+
+    @forEach($clientes as $cliente)
+   
+        clientes.push({
+            'id': {{$cliente->id}},
+            'Nome': '{{$cliente->Nome}}',
+            'Email' : "{{$cliente->Email}}",
+            'CPF' : "{{$cliente->CPF}}",
+            'Cel' : "{{$cliente->Cel}}",
+            'enderecos' : {!! json_encode($cliente->enderecos)!!}.length > 0 ?  {!! json_encode($cliente->enderecos)!!} : false
+        })
+    
     @endforeach
 
     /*Handle dropDown*/
@@ -275,17 +293,7 @@
             inputs.forEach(input=>{
                 input.removeAttribute('name')
             })
-        }
-
-        function habilitaInputs(){
-            
-        }
-
-        
-
-
-
-
+        }     
 
 
 
@@ -310,6 +318,74 @@
         })
     }
 
+    /*Abrir e fechar sections para desabilitar inputs*/
+        let novoClienteSection = document.getElementById('CadastrarCliente')
+        let clienteJaCadastradoSection = document.getElementById('ClienteJaCadastrado')
+        let novoEnderecoSection = document.getElementById('NovoEnderecoClienteJaadastrado')
+        let enderecoJaCadastradoSection = document.getElementById('EnderecoClienteJaadastrado')
+
+        let blocosEnderecos = [novoEnderecoSection, enderecoJaCadastradoSection]
+        let blocosClientes = [clienteJaCadastradoSection , novoClienteSection]
+
+
+        blocosClientes.forEach( bloco =>{
+            let seta = getSeta(bloco)
+            console.log(seta)
+            seta.addEventListener('click', handleHabilitaInputsCliente)
+        })
+
+        
+        function getSeta(div){
+            return div.getElementsByClassName('showOptions')[0]
+        }
+
+        function getParentSeta(seta){
+            return seta.parentNode.parentNode
+        }
+
+        
+
+        function escondeOutroBloco(bloco, idSelecionado){
+            let divAFechar = bloco.find( bloco => bloco.id != idSelecionado)
+            let divAFecharBloco = divAFechar.getElementsByClassName('CardInfoContent')[0] 
+
+            growUp(divAFecharBloco)
+
+            return divAFecharBloco
+        }
+
+
+        function handleHabilitaInputsCliente(){
+            let parent = getParentSeta(this).id
+            let divFechada = escondeOutroBloco(blocosClientes, parent)
+
+            //desabilitaInputsDIV(divFechada)
+            let divAserHabilitada = blocosClientes.find( bloco => bloco.id == parent) 
+            //habilitaInputsDIV(divAserHabilitada)
+        }
+
+            
+        function handleHabilitaInputsEndereco(){
+            let parent = getParentSeta(this).id
+            let divFechada = escondeOutroBloco(blocosEnderecos, parent)
+            
+            //desabilitaInputsDIV(divFechada)
+            let divAserHabilitada = blocosEnderecos.find( bloco => bloco.id == parent) 
+            //habilitaInputsDIV(divAserHabilitada)
+        }
+
+        function desabilitaInputsDIV(div){
+            let inputs = [... div.getElementsByTagName('input')]
+            inputs.forEach(input=>{
+                input.removeAttribute('name')
+            })
+        }
+        function habilitaInputsDIV(div){
+            let inputs = [... div.getElementsByTagName('input')]
+            inputs.forEach(input=>{
+                input.setAttribute('name',`${input.id}`)
+            })
+        }
 
     let searchCliente = document.getElementById('NomeClientes')
         searchCliente.addEventListener('change', handleSearchCliente)
@@ -320,11 +396,19 @@
         if(this.value.length < 1){
             escondeDescOutrosClientes()
             EscondeContainersEndereco()
+
+            
+
             return 
         }
+        blocosEnderecos.forEach( bloco =>{
+            let seta = getSeta(bloco)
+            console.log(seta)
+            seta.addEventListener('click', handleHabilitaInputsEndereco)
+        })
         escondeDescOutrosClientes()
         MostraDescClienteSearch(divASerMostrada)
-        hadleEnderecos()
+        hadleEnderecos(this.value)
         
     }
 
@@ -336,6 +420,7 @@
         })
 
     }
+
     function EscondeContainersEndereco(){
         let enderecosContainers = [... document.getElementById('ClienteRegistradoDadosUl').getElementsByClassName('section')]
 
@@ -345,12 +430,25 @@
 
     }
 
-    function hadleEnderecos(){
+    function hadleEnderecos(nomeCliente){
         MostraContainersEndereco()
+        mostraEnderecosDoClienteSelecionado(nomeCliente)
     }
 
+    function mostraEnderecosDoClienteSelecionado(nomeCliente){
+        let cliente = getCliente(nomeCliente)
+        limpaEnderecos()
+        botaOpcoesDeEnderecosDoClientePesquisado(cliente)
+    }
 
-    
+    function getCliente(nomeCliente){
+        return clientes.find( cliente => cliente.Nome == nomeCliente)
+    }
+
+    function limpaEnderecos(){// limpar enderecos cadastrados de cliente selecionado no search
+        let divEnderecos = document.getElementById('Enderecos')
+            divEnderecos.innerHTML = ''
+    }
 
     function escondeDescOutrosClientes(){
         let containerDescClientes = document.getElementById('ClienteRegistradoDadosUl')
@@ -367,6 +465,55 @@
         divASerMostrada.classList.remove('hidden')
     }
 
+    function botaOpcoesDeEnderecosDoClientePesquisado(cliente){
+        let divEnderecos = document.getElementById('Enderecos')
+        cliente.enderecos.forEach( endereco => {
+            let novoInput = document.createElement('input')
+                novoInput.setAttribute('name','enderecos')
+                novoInput.setAttribute('value',`${endereco.id}`)
+                novoInput.setAttribute('id',`endereco-${endereco.id}`)
+                novoInput.setAttribute('type','radio')
+                novoInput.classList.add('radioInput')
+                
+
+            let novoLabel = document.createElement('label')
+                novoLabel.setAttribute('for',`endereco-${endereco.id}`)
+                novoLabel.innerHTML = `${endereco.Rua}, ${endereco.Numero} - ${endereco.Bairro}`
+                novoLabel.classList.add('label')
+                novoLabel.classList.add('borderRadius')
+                novoLabel.addEventListener('click', hadleLabelEnderecoSelected)
+
+            divEnderecos.appendChild(novoInput)
+            divEnderecos.appendChild(novoLabel)
+        })
+    }
+
+
+    function hadleLabelEnderecoSelected(){
+        resetaSelectedEnderecoLabel()
+        this.classList.add('labelSelected')  
+    }
+
+    function resetaSelectedEnderecoLabel(){
+        let labels = [...document.getElementById('Enderecos').getElementsByTagName('label')]
+        labels.forEach( label => {
+            label.classList.remove("labelSelected")
+        })
+    }
+
+    
+
+    
+
+    
+    
+
+    
+
+
+
+    // blocos cadastrar cliente e cliente ja cadastrado tem de estar sincronizados, quando um abre o outro fecha
+    // blocos cadastrar novo endereco ee endereco cadastrado tem de estar sincronizados, quando um abre o outro fecha
     
 
 
@@ -377,20 +524,7 @@
         e.addEventListener('click', selecionaTipoCliente)
     })
 
-    let clientes = []
-
-    @forEach($clientes as $cliente)
-   
-        clientes.push({
-            'id': {{$cliente->id}},
-            'Nome': '{{$cliente->Nome}}',
-            'Email' : "{{$cliente->Email}}",
-            'CPF' : "{{$cliente->CPF}}",
-            'Cel' : "{{$cliente->Cel}}",
-            'enderecos' : {!! json_encode($cliente->enderecos)!!}.length > 0 ?  {!! json_encode($cliente->enderecos)!!} : false
-        })
     
-    @endforeach
     
     desabilitaInputsDiv(document.getElementById('ClienteRegistrado')) */
     

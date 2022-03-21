@@ -5,7 +5,7 @@
     @csrf
     {{-- Prato --}}
     <div class="divCustom border sombra marginTop">
-        <div id="pratoDoDia2 " class="">
+        <div id="pratoDoDia2" class="">
             <h3 class="marginBottom">Escolher prato do pedido</h3>
             <label for="Pratos" class="marginBottom">
                 <select name="Prato" id="Prato" class="form-select" id="pratosSelect">

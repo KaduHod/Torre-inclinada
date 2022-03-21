@@ -51,7 +51,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--verdeclaro);
-    border-radius: 5px 5px ;
+    border-radius: 8px 8px ;
     padding: 5px;
     color: white;
     align-items: center;
@@ -318,4 +318,48 @@
 }
 .colorRed{
     color: red;
+}
+
+@media only screen and (max-width: 1060px) {
+    #DashboardMain{
+        flex-direction: column-reverse;
+        width: 100%;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .rigth, .left{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-top: 50px;
+        height: fit-content;
+        justify-content: center;
+    }
+    #pedidos{
+        overflow-x:scroll;
+    }
+    .divOptionContainer{
+        overflow-x: scroll;
+    }
+
+    .divCustom{
+        flex-direction: column;
+    }
+    #pratoDoDia2{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    
+}
+@media only screen and (max-width: 700px) {
+    .inputCustom{
+        width: 95%;
+    }
+    .FormPedido label{
+        width: 100%;
+    }
 }

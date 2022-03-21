@@ -87,7 +87,7 @@
                     <td>{{$cliente->updated_at}}</td>
                     <td>
                       <a href="/cliente/edit/{{$cliente->id}}" class="colorGreen" >
-                        <ion-icon class="iconAdmin "  name="create-outline"></ion-icon>
+                        <ion-icon class="iconAdmin"  name="create-outline"></ion-icon>
                       </a>
                       <ion-icon class="iconAdmin colorRed"  id="{{$cliente->id}}" name="trash-outline"></ion-icon>
                     </td>

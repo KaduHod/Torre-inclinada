@@ -45,8 +45,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/Pedidos/exclude/{id}',[PedidoController::class, 'destroy']);
     Route::get('/Pedidos/editar-status/{id}',[PedidoController::class, 'editarStatus']);
     Route::post('/Pedidos/status-editado',[PedidoController::class, 'statusUpdate']);
-    
-
+     
     // Cliente
     Route::get('/Clientes',[ClienteController::class,'index']);
     Route::get('/cliente/criar',[ClienteController::class,'createForm']);
@@ -54,14 +53,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/cliente/exclude/{id}',[ClienteController::class,'destroy']);
     Route::get('/cliente/edit/{id}',[ClienteController::class, 'edit']);
     Route::post('/cliente/update',[ClienteController::class, 'update']);
-
-
-    Route::get('/logout',function(){
-        Auth::logout();
-        \Session::flush();
-
-        return redirect('/');
-    });
 
     // Admin
     Route::group(['middleware' => 'admin'], function(){
@@ -83,6 +74,13 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('/admin/relatorio/{mes}',[PdfController::class, 'relatorioMes']);
 
 
+    });
+
+    Route::get('/logout',function(){
+        Auth::logout();
+        \Session::flush();
+
+        return redirect('/');
     });
     
 });

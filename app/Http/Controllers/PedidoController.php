@@ -41,13 +41,13 @@ class PedidoController extends Controller
         $clientes = Cliente::all();
         
         
-        return view('pedidos.createCel', compact('pratos','clientes'));
+        return view('pedidos.create', compact('pratos','clientes'));
     }
 
     public function store(){
         
          if(request()->idClienteJaRegistrado){// cliente ja registrado
-
+            
             $cliente = Cliente::findOrFail(request()->idClienteJaRegistrado);
 
             if(request()->enderecos == 'novoEndereco'){
@@ -89,6 +89,7 @@ class PedidoController extends Controller
             
 
         }else{// cliente novo
+            dd(request()->all());
             $novoCliente = Cliente::create([
                                             'Nome'  => request()->NomeCliente,
                                             'Email' => request()->EmailCliente,
@@ -206,7 +207,7 @@ class PedidoController extends Controller
 
     public function editarStatus($id){
         $pedido = Pedido::findOrFail($id);
-        return view ('pedidos.editStatusCel',compact('pedido'));
+        return view ('pedidos.editStatus',compact('pedido'));
     }
 
     public function statusUpdate(){

@@ -207,3 +207,19 @@
 #tabelaDashboard table{
     color: var(--verdeescuro);
 }
+@media only screen and (max-width: 1000px) {
+    .dashboardBlockLinha{
+        flex-wrap: wrap;
+    }
+    .infoDashboard{
+        margin: 10px;
+    }
+    .graficosContainer{
+        width: 100%;
+        flex-direction: column;
+    }
+    .containerGrafico{
+        width: 100%;
+    }
+}
+

@@ -28,9 +28,9 @@
                     <div class="leftOption" name='relatorio'>
                         <span ><ion-icon class="iconOption" name="document-text-outline"></ion-icon></span>
                     </div>
-                    <div class="leftOption" name='alguma'>
+                    {{-- <div class="leftOption" name='alguma'>
                         <span><ion-icon class="iconOption" name="musical-notes-outline"></ion-icon></span>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

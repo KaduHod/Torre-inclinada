@@ -1,4 +1,4 @@
-@extends('layouts.mainCelphone')
+@extends('layouts.main')
 @section('title','Torre Inlcinada Dashboard')
 @section('content')
 <div class="Envelope">

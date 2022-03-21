@@ -3239,8 +3239,8 @@ textarea.form-control-lg {
 
 .btn-dark {
   margin: 10px 0px 10px 0px;
-  color: var(--letraIOS);
-  background-color: var(--cinzaIOS);
+  color: var(--branco);
+  background-color: var(--preto);
 }
 .btn-dark:hover {
   color: #fff;

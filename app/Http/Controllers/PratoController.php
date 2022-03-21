@@ -11,7 +11,7 @@ class PratoController extends Controller
         $dia_de_hoje = now()->toArray();
         $dia         = $dia_de_hoje['day'] . '/' . $dia_de_hoje['month'] . '/' . $dia_de_hoje['year'];
         
-        return view('prato.formCel', compact('dia'));
+        return view('prato.form', compact('dia'));
     }
     public function store(){
         
