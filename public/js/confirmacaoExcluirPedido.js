@@ -34,12 +34,12 @@ function setPrefix(){
 function confirmacao(){
   let prefix = setPrefix()
   let verifica = [... divNotificacao.classList].indexOf('fade-in') == -1 ? true : false
-  console.log(prefix)
   if(verifica){
     divNotificacao.classList.add('fade-in')
     excluir.href = `${prefix}${this.id}`
 
   } 
+  confirmacao.focus()
 }
 
 function fechaConfirmacao(){

@@ -9,7 +9,7 @@
 .cardAdmin{
     width: 220px;
     height: 160px;
-    margin-bottom: 30px;
+    margin: 30px;
     display: flex;
     flex-direction: column;
     border-radius: 10px ;
@@ -75,7 +75,7 @@
 #Client{
     background-image: url('/img/iconeCliente.png');
 }
-#Prato{
+#prato{
     background-image: url('/img/iconePrato.png');
 }
 #Faturamento{
@@ -219,6 +219,12 @@
         flex-direction: column;
     }
     .containerGrafico{
+        width: 100%;
+    }
+    .containerGraficoPie{
+        width: 100%;
+    }
+    #tabelaDashboard{
         width: 100%;
     }
 }

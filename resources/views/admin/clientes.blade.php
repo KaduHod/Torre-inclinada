@@ -57,8 +57,8 @@
     <button class="btn btn-dark">Pesquisar</button>
   </form>
   <span>Total de clientes: {{$totCliente}}</span>
-  <div class="table-responsive border">
-    <table class="table tabela" id="tabela">
+  <div class="tabela table-responsive border" >
+    <table class="table" id="tabela">
         <thead>
           <tr>
             <th scope="col">id</th>

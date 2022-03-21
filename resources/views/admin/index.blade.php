@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="cardAdmin border">
-            <div class="infoCardAdmin" id="Prato">
+            <div class="infoCardAdmin" id="prato">
                 
             </div>
             <div class="linkContainerAdminOption">

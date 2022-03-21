@@ -20,7 +20,7 @@
 }
 #AdminDashboard{
     display: flex;
-    height: 70vh;
+    height: fit-content;
     padding: 20px;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -38,7 +38,7 @@
     border-radius: 5px;
     transition: 200ms;
     background-color: var(--verdeescuro);
-    margin: 30px 0px 30px 0px;
+    margin: 30px ;
 }
 .Month:hover{
     box-shadow: 0px 0px 30px #707174;

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container centerFlex flexColumn">
-  <div class="table-responsive border">
+  <div class="tabela table-responsive border">
     <table class="table">
         <thead>
           <tr>

@@ -94,7 +94,7 @@ span{
     align-items: center;
     justify-content: center;
     padding: 20px;
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
 }
 .campoFomr{
@@ -131,12 +131,12 @@ span{
 
 
 .notificacao{
-    display: block;
+    display: block; 
     border:1px solid rgb(163, 163, 163);
-    position: absolute;
+    position: fixed; 
     width: 250px;
-    height: 120px;
-    top:1000px;
+    height: 120px; 
+    top:50%; 
     margin: 0 auto; 
     border-radius: 5px;
     background-color: var(--branco);
@@ -243,3 +243,45 @@ span{
         flex-direction: column;
     }
 }
+@media only screen and (max-width: 700px) {
+    #form{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 95%;
+        margin: 0 auto;
+    }
+    #Campode_formularios label{
+        
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+    text-area{
+        width: 80%;
+    }
+    #formNovoCliente{
+        margin-left: 0px;
+    }
+     #NovoEndereco{
+        margin-left:0px;
+    } 
+    #Prato{
+        width: 80%;
+    }
+    #NomeClientes{
+        width: 80%;
+    }
+    #enderecos{
+        width: 80%;
+    }
+    .showDescPrato{
+        width: 70%;
+    }
+}
+
+
+

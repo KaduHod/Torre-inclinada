@@ -8,7 +8,7 @@
 </a>
 
 
-
+<div class="tabela">
     <table class="table table-dark">
         <thead>
           <tr>
@@ -36,6 +36,6 @@
         @endforeach
         </tbody>
       </table>
-
+    </div>
 
 @endsection

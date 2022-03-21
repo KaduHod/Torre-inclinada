@@ -6,7 +6,7 @@
     @csrf
     <input type="hidden" name="idPedido" id="idPedido" value="{{$pedido->id}}">
     <div class="flex border sombra" id="Campode_formularios">
-        <div id="pratoDoDia2 " class=" campoFomr">
+        <div id="pratoDoDia2" class=" ">
             <h3 class="marginBottom">Alterar  prato do pedido</h3>
             <label for="Pratos" class="marginBottom">
                 <select name="Prato" id="Prato" class="form-select" id="pratosSelect">
@@ -36,7 +36,7 @@
             @endforeach
             <label for="AdendoPedido">
                 <h3>Adendo ao pedido</h3>
-                <textarea class="form-control" name="AdendoPedido" id="" cols="30" rows="5">
+                <textarea class="form-control" name="AdendoPedido" id="" cols="15" rows="5">
                 </textarea>    
             </label>
         </div> 
